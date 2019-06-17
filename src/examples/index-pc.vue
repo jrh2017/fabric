@@ -18,6 +18,7 @@
                 <!-- <i @click="toSVG" class="pt-iconfont icon-crop"></i> -->
                 <button @click="toIMG">导出图片</button>
                 <button @click="toSVG" style="margin-top: 10px;">导出SVG</button>
+                <button @click="getObjects" style="margin-top: 10px;">获取对象</button>
             </div>
         </div>
         <vue-image-model :close="()=>{imgUrl=''}" v-show="imgUrl.length>0" :url="imgUrl"></vue-image-model>
@@ -26,12 +27,7 @@
 <script>
 import VueImageModel from '../components/image-model.vue';
 import '@/libs/svg2pdf.js'
-import jsPDF from 'jspdf-yworks'
-import sticker1 from '../../static/images/sticker1.png'
-import sticker2 from '../../static/images/sticker2.png'
-import sticker3 from '../../static/images/sticker3.png'
-import sticker4 from '../../static/images/sticker4.png'
-import sticker5 from '../../static/images/sticker5.png'
+import imgObj from './img.json'
 
 export default {
     components: {
@@ -42,22 +38,7 @@ export default {
             imgUrl: '',
             width: 300,
             height: 500,
-            list: [{
-                id: 1,
-                url: sticker1
-            }, {
-                id: 2,
-                url: sticker2
-            }, {
-                id: 3,
-                url: sticker3
-            }, {
-                id: 4,
-                url: sticker4
-            }, {
-                id: 5,
-                url: sticker5
-            }]
+            list: imgObj
         };
     },
     created() {
@@ -66,7 +47,7 @@ export default {
         console.log(document.body.offsetWidth);
     },
     mounted() {
-        this.$refs.canvas.createTriangle({ id: 'Triangle', x: 100, y: 100, x1: 150, y1: 200, x2: 180, y2: 190, fill: 'yellow', left: 80 });
+        this.$refs.canvas.createTriangle({ id: 'Triangle', x: 0, y: 0, x1: 50, y1: 50, x2: 30, y2: 20, fill: 'yellow', left: 0, top: 0 });
         // this.$refs.canvas.createImage('/static/images/sticker1.png', { id: 'myImage', width: 100, height: 100, left: 110, top: 110 });
         // this.$refs.canvas.createImage('/static/images/sticker2.png');
         // this.$refs.canvas.createImage('/static/images/sticker3.png');
@@ -108,6 +89,10 @@ export default {
             // console.log(obj);
             // console.log(option);
         },
+        getObjects () {
+            let obj = this.$refs.canvas.getObjects()
+            console.log('obj', obj)
+        },
         toIMG () {
             // 下载图片
             let ahref = document.createElement('a')
@@ -119,14 +104,6 @@ export default {
             let svg = this.$refs.canvas.toSvg()
             // let svg = document.getElementById("canvas")
             // console.log('svg', svg)
-            
-            // 下载图片
-            // let ahref = document.createElement('a')
-            // ahref.href = document.getElementById('canvas').toDataURL('image/png')
-            // ahref.download = 'exportPng'
-            // ahref.click()
-            // 
-            
             // 下载svg
             var svgBlob = new Blob([svg], {type:"image/svg+xml;charset=utf-8"});
             var svgUrl = URL.createObjectURL(svgBlob);
@@ -136,14 +113,6 @@ export default {
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
-
-            // const pdf = new jsPDF()
-            // svg2pdf(svg, pdf, {
-            //     xOffset: 0,
-            //     yOffset: 0,
-            //     scale: 1
-            // });
-            // pdf.save('myPDF.pdf')
         }
     }
 };

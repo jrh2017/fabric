@@ -344,7 +344,7 @@ export default {
         createImage(url, options) {
             let canvas = this.canvas;
             let that = this;
-            fabric.Image.fromURL("data:image/jpeg;base64,"+url, function(img) {
+            fabric.Image.fromURL(url, function(img) {
                 // 添加过滤器
                 // img.filters.push(new fabric.Image.filters.Grayscale());
                 // 应用过滤器并重新渲染画布执行
