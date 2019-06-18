@@ -350,26 +350,9 @@ export default {
                 // 应用过滤器并重新渲染画布执行
                 // img.applyFilters(canvas.renderAll.bind(canvas));
                 // console.log(img);
-                let maxWidth = that.width / 2;
-                let width = 0;
-                let height = 0;
-                if (img.width > img.height) {
-                    if (img.width > maxWidth) {
-                        width = maxWidth;
-                        height = (img.height / img.width) * width;
-                    } else {
-                        width = img.width;
-                        height = img.height;
-                    }
-                } else {
-                    if (img.height > maxWidth) {
-                        height = maxWidth;
-                        width = (img.width / img.height) * height;
-                    } else {
-                        width = img.width;
-                        height = img.height;
-                    }
-                }
+                let maxWidth = that.width;
+                let width = img.width;
+                let height = img.height;
                 if (options && options.width) {
                     width = options.width;
                 }
@@ -400,55 +383,6 @@ export default {
                 var center = img.getCenterPoint();
                 img.hasControls = true;
                 img.hasBorders = true;
-                // img.customiseCornerIcons(
-                //   {
-                //     settings: {
-                //       borderColor: '#b4b4b4',
-                //       cornerSize: 20,
-                //       cornerBackgroundColor: '#FF0000',
-                //       cornerShape: 'circle',
-                //       cornerPadding: 0
-                //     }
-                //     tl: {
-                //       icon: dotCircleImg
-                //     },
-                //     tr: {
-                //       icon: dotCircleImg
-                //     },
-                //     bl: {
-                //       icon: dotCircleImg
-                //     },
-                //     br: {
-                //       icon: dotCircleImg
-                //     },
-                //     mb: {
-                //       icon: dotCircleImg
-                //     },
-                //     mt: {
-                //       icon: dotCircleImg
-                //     },
-                //     mr: {
-                //       icon: dotCircleImg
-                //     },
-                //     mtr: {
-                //       icon: dotCircleImg
-                //     }
-                //   },
-                //   function () {
-                //     canvas.renderAll();
-                //   }
-                // );
-                // img.setControlsVisibility({
-                //   bl: true,
-                //   br: true,
-                //   mb: false,
-                //   ml: true,
-                //   mr: true,
-                //   mt: false,
-                //   mtr: true,
-                //   tl: true,
-                //   tr: true
-                // });
                 canvas.add(img); // 把图片添加到画布上
                 if (options && options.registeObjectEvent) {
                     Utils.registeObjectEvent(that, img);

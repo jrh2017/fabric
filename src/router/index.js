@@ -31,9 +31,14 @@ const router= new Router({
       component: Index
     },
     {
-      path: '/',
+      path: '/createSVG',
       name: 'index',
       component: PCIndex
+    },
+    {
+      path: '/',
+      name: 'createSVG',
+      component: resolve => require(['@/examples/createSVG.vue'], resolve)
     }
   ]
 });
